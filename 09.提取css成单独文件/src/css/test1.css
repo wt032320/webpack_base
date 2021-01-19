@@ -1,0 +1,8 @@
+#box1 {
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+  background-image: url('../img/iu1.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
