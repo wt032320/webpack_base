@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-18 11:13:31
- * @LastEditTime: 2021-01-21 16:47:26
+ * @LastEditTime: 2021-01-22 15:52:58
  * @LastEditors: Please set LastEditors
  * @Description: 开发环境配置:能让代码运行
  * @FilePath: \webpack5\08.开发环境配置\webpack.config.js
@@ -76,7 +76,7 @@ module.exports = {
     // 当修改了webpack配置 需要重启webpack服务
     hot: true
   },
-  devtool: 'source-map'
+  devtool: 'eval-source-map'
 }
 
 /*
@@ -84,7 +84,39 @@ module.exports = {
 
     参数： [inline-|hidden-|eval-][nomources-][cheap-[module-]]source-map
 
-    inline-source-map
-    hidden-source-map
-    eval-source-map
+    source-map: 外部
+        错误代码的准确信息 和 源代码的错误位置
+    inline-source-map: 内联
+        1. 只生成一个内联 source-map
+        错误代码的准确信息 和 源代码的错误位置
+    hidden-source-map: 外部
+        错误代码错误原因 但是没有错误位置 不能追踪到源代码错误 只能提示到构建后代码的错误位置
+    eval-source-map：  内联
+        1. 每一个文件都生成对应的source-map
+        错误代码准确信息 和 源代码的错误位置
+    nomources-source-map: 外部
+        错误代码准确信息，但是没有任何源代码信息
+    cheap-source-map: 外部
+        错误代码准确信息 和 源代码的错误位置 只能精确到行
+    cheap-module-source-map: 外部
+        错误代码准确信息 和 源代码的错误位置
+        module会将loader的source map 加入
+
+    内联 和 外部的区别： 1. 外部生成了文件， 内联没有 2. 内联构建速度更快
+
+    开发环境： 速度快一点， 调试更友好
+      速度快（eval > inline > cheap > ...）
+          eval-cheap-source-map
+          eval-source-map
+      调试友好
+          source-map
+          cheap-module-source-map
+          cheap-source-map 
+
+      --> eval-source-map / eval-cheap-module-source-map
+    生产环境： 源代码要不要隐藏  调试要不要更友好
+        内联会让代码体积变大 所以在生产环境不用内联
+        nosources-source-map 全部隐藏
+        hidden-source-map 只隐藏源代码 会提示构建后代码错误信息
+      --> source-map / cheap-module-source-map
 */
