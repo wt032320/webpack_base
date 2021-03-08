@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-20 10:27:55
- * @LastEditTime: 2021-03-08 11:19:45
+ * @LastEditTime: 2021-03-08 15:17:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack5\16.生产环境配置\webpack.config.js
@@ -14,6 +14,17 @@ const { resolve } = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+/*
+  tree shaking: 去除无用的代码
+    前提: 1. 必须使用ES6模块化 2. 开启production环境
+    作用： 减少代码体积
+
+    在package.json中配置
+      "sideEffects": false  所有代码都没有副作用(都可以进行tree shaking)
+        问题： 可能会把css / @babel/polyfill (副作用) 文件干掉
+      "sideEffects": ["*.css"]
+*/
 // 复用loader
 const commonCssLoader = [
   MiniCssExtractPlugin.loader, 
@@ -34,7 +45,7 @@ const commonCssLoader = [
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    filename: 'js/main.js',
+    filename: 'js/main.[contenthash:10].js',
     path: resolve(__dirname, 'build')
   },
   module: {
@@ -86,7 +97,7 @@ module.exports = {
                     useBuiltIns: 'usage',
                     // 指定core-js版本
                     corejs: {
-                      vresion: 3
+                      vresion: '3.0.0'
                     },
                     // 指定兼容性做到那个版本浏览器
                     targets: {
@@ -96,7 +107,10 @@ module.exports = {
                     }
                   }
                 ]
-              ]
+              ],
+              // 开启babel缓存
+              // 第二次构建时，会读取之前的缓存 速度会更快
+              cacheDirectory: true
             }
           },
           {
@@ -129,7 +143,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/built.css'
+      filename: 'css/built.[contenthash:10].css'
     }),
     new OptimizeCssAssetsWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -141,5 +155,6 @@ module.exports = {
       }
     })
   ],
-  mode: 'production'
+  mode: 'production',
+  devtool: 'source-map'
 }

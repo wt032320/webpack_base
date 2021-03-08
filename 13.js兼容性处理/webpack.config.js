@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-19 16:34:22
- * @LastEditTime: 2021-01-19 18:12:08
+ * @LastEditTime: 2021-03-08 15:27:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack5\12.js语法检查\webpack.config.js
@@ -29,29 +29,38 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          // 预设： 指示babel做怎样的兼容性处理
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                // 按需加载
-                useBuiltIns: 'usage',
-                // 指定core-js版本
-                corejs: {
-                  vresion: 3
-                },
-                // 指定兼容性做到那个版本浏览器
-                targets: {
-                  chrome: '60',
-                  firefox: '50',
-                  ie: '9'
-                }
-              }
-            ]
-          ]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
         }
+        // loader: 'babel-loader',
+        // options: {
+        //   // 预设： 指示babel做怎样的兼容性处理
+        //   presets: [
+        //     [
+        //       '@babel/preset-env',
+        //       {
+        //         // 按需加载
+        //         useBuiltIns: 'usage',
+        //         // 指定core-js版本
+        //         corejs: {
+        //           vresion: 3
+        //         },
+        //         // 指定兼容性做到那个版本浏览器
+        //         targets: {
+        //           chrome: '60',
+        //           firefox: '50',
+        //           ie: '9'
+        //         }
+        //       }
+        //     ]
+        //   ],
+          // plugins: ['@babel/plugin-transform-runtime']
       }
     ]
   },
