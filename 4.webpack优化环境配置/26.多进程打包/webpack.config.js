@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-20 10:27:55
- * @LastEditTime: 2021-03-09 16:43:39
+ * @LastEditTime: 2021-03-10 11:58:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack5\16.生产环境配置\webpack.config.js
@@ -94,7 +94,7 @@ module.exports = {
             use: {
               /*
                 开启多进程打包
-                进程启动大概为6000ms, 进程通信也有开销
+                进程启动大概为600ms, 进程通信也有开销
                 只有工作消耗时间比较长,才需要多进程打包
               */ 
               {
