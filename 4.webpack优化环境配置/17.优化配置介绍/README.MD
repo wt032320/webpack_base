@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-20 11:12:55
- * @LastEditTime: 2021-01-20 11:23:31
+ * @LastEditTime: 2021-03-10 11:59:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack5\17.优化配置介绍\README.MD
@@ -12,9 +12,21 @@
 ## 开发环境性能优化
 
 * 优化打包构建速度
+  * HNR
 * 优化代码调试
+  * source-map
 
 ## 生产环境优化
 
 * 优化打包构建速度
+  * oneOf
+  * babel缓存
+  * 多进程打包
+  * externals
+  * dll
 * 优化代码运行的性能
+  * 缓存(hash-chunkhsah-contenthash)
+  * tree shaking
+  * code splt (代码分割)
+  * 懒加载/预加载
+  * PWA
